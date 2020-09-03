@@ -7,5 +7,6 @@ FactoryBot.define do
         director { Faker::Name.name }
         plot_keywords { Faker::Lorem.words.join('|') }
         facebook_likes { Faker::Types.rb_integer }
+        color_format { Movie.color_formats.values.sample }
     end
 end

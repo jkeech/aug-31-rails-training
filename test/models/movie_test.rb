@@ -74,4 +74,20 @@ class MovieTest < ActiveSupport::TestCase
     result = Movie.movies_by_director_after_2010 "Tom Hanks"
     assert_equal 0, result.count
   end
+
+  test "movie has a color format" do
+    movie = create(:movie)
+    movie.color!
+
+    assert movie.color?, "should be color"
+    refute movie.black_and_white?, "should not be black and white"
+    assert_equal "color", movie.color_format
+
+    movie.black_and_white!
+
+    assert movie.black_and_white?, "should be black and white"
+    refute movie.color?, "should not be color"
+
+    assert_equal "black_and_white", movie.color_format
+  end
 end

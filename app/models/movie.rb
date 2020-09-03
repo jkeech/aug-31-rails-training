@@ -1,6 +1,8 @@
 class Movie < ApplicationRecord
     validates_presence_of :title
 
+    enum color_format: [ :black_and_white, :color ]
+
     def self.count_more_than_n_likes(n)
         where("facebook_likes > ?", n).count
     end
@@ -19,5 +21,5 @@ class Movie < ApplicationRecord
 
     def self.year_released(title)
         find_by(title: title)&.year
-    end
+    end    
 end

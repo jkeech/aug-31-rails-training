@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_01_223029) do
+ActiveRecord::Schema.define(version: 2020_09_03_213858) do
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_09_01_223029) do
     t.string "year"
     t.string "plot_keywords"
     t.integer "facebook_likes"
+    t.integer "color_format", default: 0
   end
 
 end
