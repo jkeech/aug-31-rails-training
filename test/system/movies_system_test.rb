@@ -4,26 +4,25 @@ class MoviesSystemTest < ApplicationSystemTestCase
   test "visiting the show" do
     movie = create(:movie)
 
-    visit "/movies/#{movie.id}"
+    visit movie_path(movie)
     
     assert_text movie.title
     assert_text movie.director
   end
 
   test "listing the shows" do
-    movie_1 = create(:movie)
-    movie_2 = create(:movie)
+    movies = create_list(:movie, 2)
 
-    visit "/movies"
+    visit movies_path
     
-    assert_text movie_1.title
-    assert_text movie_1.director
-    assert_text movie_2.title
-    assert_text movie_2.director
+    assert_text movies.first.title
+    assert_text movies.first.director
+    assert_text movies.second.title
+    assert_text movies.second.director
   end
 
   test "creating a new movie" do
-    visit "/movies"
+    visit movies_path
 
     assert_button "Add New Movie"
     click_button "Add New Movie"
@@ -44,7 +43,8 @@ class MoviesSystemTest < ApplicationSystemTestCase
 
   test "edit a new movie" do
     movie = create(:movie)
-    visit "/movies/#{movie.id}"
+
+    visit movie_path(movie)
 
     assert_button "Edit #{movie.title}"
     click_button "Edit #{movie.title}"
