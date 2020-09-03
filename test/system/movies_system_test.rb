@@ -2,8 +2,7 @@ require "application_system_test_case"
 
 class MoviesSystemTest < ApplicationSystemTestCase
   test "visiting the show" do
-    attributes = { title: "Parasite", director: "Bong Joon-ho" }
-    movie = Movie.create(attributes)
+    movie = create(:movie)
 
     visit "/movies/#{movie.id}"
     
@@ -12,8 +11,8 @@ class MoviesSystemTest < ApplicationSystemTestCase
   end
 
   test "listing the shows" do
-    movie_1 = Movie.create({ title: "Parasite", director: "Bong Joon-ho" })
-    movie_2 = Movie.create({ title: "Avatar", director: "James Cameron" })
+    movie_1 = create(:movie)
+    movie_2 = create(:movie)
 
     visit "/movies"
     
@@ -44,7 +43,7 @@ class MoviesSystemTest < ApplicationSystemTestCase
   end
 
   test "edit a new movie" do
-    movie = Movie.create({ title: "Avatar", director: "James Cameron", year: "2008" })
+    movie = create(:movie)
     visit "/movies/#{movie.id}"
 
     assert_button "Edit #{movie.title}"
@@ -57,8 +56,8 @@ class MoviesSystemTest < ApplicationSystemTestCase
     click_button "Edit #{movie.title}"
 
     # Redirect to show page for the new movie
-    assert_text "Avatar"
-    assert_text "James Cameron"
+    assert_text movie.title
+    assert_text movie.director
     assert_text "2009"
   end
 end
