@@ -75,7 +75,7 @@ class MovieTest < ActiveSupport::TestCase
     assert_equal 0, result.count
   end
 
-  test "movie has a color format" do
+  test "color format methods" do
     movie = create(:movie)
     movie.color!
 
@@ -89,5 +89,18 @@ class MovieTest < ActiveSupport::TestCase
     refute movie.color?, "should not be color"
 
     assert_equal "black_and_white", movie.color_format
+  end
+
+  test "is_in methods" do
+    movie = create(:movie)
+    movie.color!
+
+    assert movie.is_in_color?, "should be color"
+    refute movie.is_in_black_and_white?, "should not be black and white"
+
+    movie.black_and_white!
+
+    assert movie.is_in_black_and_white?, "should be black and white"
+    refute movie.is_in_color?, "should not be color"
   end
 end
