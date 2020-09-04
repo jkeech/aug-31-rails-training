@@ -1,5 +1,6 @@
 class Movie < ApplicationRecord
     validates_presence_of :title
+    belongs_to :director
 
    fancy_enum color_format: [ :black_and_white, :color ]
 

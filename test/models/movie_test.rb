@@ -3,10 +3,17 @@ require 'test_helper'
  
 class MovieTest < ActiveSupport::TestCase
   test "movie is valid with a title" do
-    movie = build(:movie, title: "Parasite", director: "Bong Joon-ho")
+    movie = build(:movie, title: "Parasite")
 
     assert_equal "Parasite", movie.title
-    assert_equal "Bong Joon-ho", movie.director
+    assert movie.valid?
+  end
+
+  test "movie belongs to a director" do
+    director = create(:director)
+    movie = create(:movie, director: director)
+
+    assert_equal director, movie.director
     assert movie.valid?
   end
 
@@ -68,10 +75,12 @@ class MovieTest < ActiveSupport::TestCase
   end
 
   test "movies by director after 2010 does not find movies from the wrong director" do
-    movie_1 = create(:movie, director: "Tim Hanks")
-    movie_2 = create(:movie, director: "Someone Else")
+    correct_director = create(:director)
+    wrong_director = create(:director)
+    movie_1 = create(:movie, director: wrong_director, year: "2020")
+    movie_2 = create(:movie, director: wrong_director , year: "2020")
 
-    result = Movie.movies_by_director_after_2010 "Tom Hanks"
+    result = Movie.movies_by_director_after_2010 correct_director
     assert_equal 0, result.count
   end
 

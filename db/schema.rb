@@ -10,15 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_03_213858) do
+ActiveRecord::Schema.define(version: 2020_09_04_202925) do
+
+  create_table "directors", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+  end
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
-    t.string "director"
     t.string "year"
     t.string "plot_keywords"
     t.integer "facebook_likes"
     t.integer "color_format", default: 0
+    t.integer "director_id"
+    t.index ["director_id"], name: "index_movies_on_director_id"
   end
 
 end
